@@ -1,0 +1,14 @@
+import { NextFunction, Request, Response } from 'express';
+export function requireAuth(
+	req: Request,
+	res: Response,
+	next: NextFunction
+): void {
+	if (req.session && req.session.loggedIn) {
+		next();
+		return;
+	} else {
+		res.status(403);
+		res.send(`Not Permitted`);
+	}
+}
